@@ -6,11 +6,13 @@ const PizzaPage = () => {
   return (
     <section className='my-10'>
       <div className='flex flex-wrap justify-between px-7'>
+        {/* maps through every element in object and display on page */}
           {pizza.map(piz => {
+            // Destructuring
             const {id, name,Image } = piz;
             return (
               <div key={id} className="bg-white shadow-md rounded-lg max-w-xs mt-4">
-                <Link to={`/product/${id}`}>
+                <Link to={`/pizza/${id}`}>
                   <img src={Image} alt={name} className="rounded-t-lg"/>
                 </Link>
                 <div className='pb-5 pl-5'>

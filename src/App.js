@@ -13,7 +13,8 @@ function App() {
       <Route path="/" element={<Layout/>}>
         <Route index element={<PizzaPage />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="product/:id" element={<SinglePizza />} />
+        {/* Each  */}
+        <Route path="pizza/:id" element={<SinglePizza />} />
       </Route>
     </Routes>
   );

@@ -5,24 +5,33 @@ import { pizza, toppings } from '../pizza';
 import { usePizzaContext } from '../context';
 
 const SinglePizza = () => {
+  // States and providers
   const [singleProduct, setSingleProduct] = useState([])
   const [toppins, setToppins] = useState([])
   const [size, setSize] = useState('small')
-  const [prize, setPrize] = useState(0)
+  const [price, setPrice] = useState(0)
   const [result, setResult] = useState(0)
   const {addToCart} = usePizzaContext()
+  // React router useParams: Creates unique pages for multiple elements and Returns an object of key/value pairs of the dynamic params from the current URL that were matched by the route path.
   const { id } = useParams();
 
+  // Add toppins to pizza
   const addToppins = (e) => {
     let toppinsName = e.currentTarget.innerHTML
+    // Checks if toppins haven't been added
     if(!toppins.includes(toppinsName)){
+      // Adds new toppins to the end of array
       setToppins([...toppins, toppinsName])
     }
-    const small = toppins.slice(0, 3)
-    const medium = toppins.slice(0, 4)
-    if(toppins.length >= 3 && size === 'small'){
+
+
+    const small = toppins.slice(0, 2)
+    const medium = toppins.slice(0, 3)
+    // Checks for pizza size then add appropriate number of toppins
+    // If pizza size is small, toppins is equal 2
+    if(toppins.length >= 2 && size === 'small'){
       setToppins(small)
-    }else if(toppins.length >= 4 && size === 'medium'){
+    }else if(toppins.length >= 3 && size === 'medium'){
       setToppins(medium)
     }
   }
@@ -30,23 +39,31 @@ const SinglePizza = () => {
 
 
   useEffect(() => {
+    // Finds the products that matches the id param and find the properties from the pizza object and stores iit in a new variable
     const newProduct = pizza.find(single => single.id === parseInt(id))
     setSingleProduct(newProduct)
+    // Sets prices for each pizza sizes
     if(size === "small"){
-      setPrize(7.99)
+      setPrice(7.99)
     }else if(size === "medium"){
-      setPrize(9.99)
+      setPrice(9.99)
     }else if(size === "large" ){
-      setPrize(13.99)
+      setPrice(13.99)
     }
-    let tempresult = (toppins.length * 1.15) + prize
+
+    // Calculates total price of pizza with toppins
+    let tempresult = (toppins.length * 1.15) + price
+    // Sets price to two decimal places to avoid long float numbers
     setResult((Math.round(tempresult * 100) / 100).toFixed(2))
-  }, [id, prize, size, toppins, result])
+  }, [id, price, size, toppins, result])
 
 
 
+
+  // Destructures Array to make it easier accessing object keys
   const { name, Image } = singleProduct
   return (
+    // Displays elements of each pizzas
     <article key={id} className="flex m-10">
       <div>
         <img src={Image} alt={name} className='max-w-3xl rounded'/>
@@ -65,6 +82,7 @@ const SinglePizza = () => {
         <div className='mt-4'>
             <h1>Toppins (£1.15 for each)</h1>
           <div className='flex flex-col w-[300px] bg-white mt-3 p-5'>
+            {/* Maps through toppins and creates a button for each */}
             {toppings.map(topps => {
               const {id, name} = topps
               return(
@@ -76,13 +94,17 @@ const SinglePizza = () => {
               )
             })}
           </div>
+          {/* If toppins array has elements display them and seperate each with a comma else return nothing*/}
           {toppins.length ? 
           <p className='text-md pt-5 capitalize'>
             Toppins: ({toppins.join(', ')})
           </p> : ""
           }
+          {/* Display total price */}
           <p className='mt-10'><span className='text-xl'>Total:</span> £{result}</p>
+          
           <Link to='/cart'>
+            {/* Add to cart functionality (Created unique ID for each cart element using  Date.now() ) */}
             <button className='px-7 py-3 bg-[#1B557E] text-white mt-5 rounded' onClick={() => addToCart(Date.now(), size, singleProduct, toppins, result)}>Add to basket</button>
           </Link>
         </div>
