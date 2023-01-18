@@ -83,7 +83,7 @@ const SinglePizza = () => {
           </select>
         </div>
         <div className='mt-4'>
-            <h1>Toppins (£1.15 for each)</h1>
+            <h1>Toppings (£1.15 for each)</h1>
           <div className='flex flex-col w-[300px] bg-white mt-3 p-5'>
             {/* Maps through toppins and creates a button for each */}
             {toppings.map(topps => {
@@ -100,7 +100,7 @@ const SinglePizza = () => {
           {/* If toppins array has elements display them and seperate each with a comma else return nothing*/}
           {toppins.length ? 
           <p className='text-md pt-5 capitalize'>
-            Toppins: ({toppins.join(', ')})
+            Toppings: ({toppins.join(', ')})
           </p> : ""
           }
           {/* Display total price */}
