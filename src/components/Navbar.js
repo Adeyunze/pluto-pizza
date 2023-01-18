@@ -9,7 +9,7 @@ const Navbar = () => {
   const { cart } = usePizzaContext()
   // Navbar design
   return (
-    <nav className='bg-[#1B557E] flex justify-between items-center px-5'>
+    <nav className='bg-[#1B557E] flex justify-between items-center px-5 py-2'>
       <Link to='/'>
         <img src={logo} alt="Pluto's pizza" className='w-[150px]' />
       </Link>
