@@ -51,14 +51,16 @@ export const PizzaProvider = ({ children }) => {
     cart.forEach(item => {
       total_price += item.price
     })
-    setTotal(total_price)
+    let tempresult = (Math.round(total_price * 100) / 100).toFixed(2)
+    setTotal(Number(tempresult))
     console.log(total);
   }, [cart, total])
   // This code uses the useEffect hook to store the current state of the cart in local storage every time the cart state updates. This allows for persistence of the cart's data even when the user refreshes the page or closes the browser.
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
     countCartTotals()
-  },[cart, countCartTotals])
+    
+  },[cart, countCartTotals, total])
 
   return (
     <PizzaContext.Provider value={{
