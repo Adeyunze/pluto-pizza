@@ -3,7 +3,7 @@ import { usePizzaContext } from '../context';
 
 const Cartlist = () => {
   // Getting functions and states from context api
-  const { cart, removeCartItem, clearCart } = usePizzaContext()
+  const { cart, removeCartItem, clearCart, total } = usePizzaContext()
 
   return (
     <section className='my-9'>
@@ -28,8 +28,8 @@ const Cartlist = () => {
 
         })}
       </div>
-      <div className='px-10 mt-8'>
-        
+      <div className='px-10 mt-10'>
+        <h1 className='text-xl'>Total: £{total}</h1>
         {/* This button Clears all element in cart*/}
         <button className='px-7 py-3 bg-[#1B557E] text-white mt-5 rounded mr-5' onClick={()=> clearCart()}>Clear Cart</button>
         {/* Fancy checkout button just for aesthetics*/}

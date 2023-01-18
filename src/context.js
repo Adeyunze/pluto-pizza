@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState, useCallback} from "react";
 
 // Initilize react context api
 const PizzaContext = React.createContext()
@@ -18,6 +18,7 @@ const getLocalStorage = () => {
 export const PizzaProvider = ({ children }) => {
   // Initialized cart variables
   const [cart, setCart] = useState(getLocalStorage())
+  const [total, setTotal] = useState(0)
   
   // This code creates and Adds new object to cart array
   const addToCart = (id, size, pizza, toppins, price) => {
@@ -29,6 +30,7 @@ export const PizzaProvider = ({ children }) => {
       toppins,
       price
     }
+    console.log(price);
     setCart([...cart, newItem])
   }
 
@@ -38,19 +40,29 @@ export const PizzaProvider = ({ children }) => {
     setCart(tempCart)
   }
 
+
   // This code Clears out the whole cart
   const clearCart = () => {
     setCart([])
   }
 
+  const countCartTotals = useCallback(() => {
+    let total_price = 0
+    cart.forEach(item => {
+      total_price += item.price
+    })
+    setTotal(total_price)
+    console.log(total);
+  }, [cart, total])
   // This code uses the useEffect hook to store the current state of the cart in local storage every time the cart state updates. This allows for persistence of the cart's data even when the user refreshes the page or closes the browser.
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
-  },[cart])
+    countCartTotals()
+  },[cart, countCartTotals])
 
   return (
     <PizzaContext.Provider value={{
-      addToCart,removeCartItem, cart, clearCart
+      addToCart,removeCartItem, cart, clearCart, total
     }}>
       {children}
     </PizzaContext.Provider>

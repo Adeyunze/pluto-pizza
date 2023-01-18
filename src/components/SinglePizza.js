@@ -34,7 +34,7 @@ const SinglePizza = () => {
     }else if(toppins.length >= 3 && size === 'medium'){
       setToppins(medium)
     }
-  }
+}
 
 
 
@@ -54,7 +54,9 @@ const SinglePizza = () => {
     // Calculates total price of pizza with toppins
     let tempresult = (toppins.length * 1.15) + price
     // Sets price to two decimal places to avoid long float numbers
-    setResult((Math.round(tempresult * 100) / 100).toFixed(2))
+    tempresult = (Math.round(tempresult * 100) / 100).toFixed(2)
+    setResult(Number(tempresult))
+
   }, [id, price, size, toppins, result])
 
 
@@ -64,15 +66,16 @@ const SinglePizza = () => {
   const { name, Image } = singleProduct
   return (
     // Displays elements of each pizzas
-    <article key={id} className="flex m-10">
-      <div>
-        <img src={Image} alt={name} className='max-w-3xl rounded'/>
+    <article key={id} className="flex flex-col md:flex-row m-10">
+      <div className='sm:max-w-3xl'>
+        <img src={Image} alt={name} className='w-[100%] rounded'/>
       </div>
-      <div className='pl-7'>
+      <div className='md:pl-7 pl-0 pt-5 md:pt-0'>
         <h1 className='text-2xl'>{name}</h1>
 
         <div className='w-[300px] pt-3'>
           <label htmlFor="pizzaSizes" className="block mb-2 text-sm font-medium text-gray-900">Select Size</label>
+          {/* This code Gets the current size of pizza and assign it to the size variable */}
           <select id="pizzaSizes" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" onChange={(e) => setSize(e.target.value)}>
             <option value="small">Small</option>
             <option value="medium">Medium</option>
