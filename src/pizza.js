@@ -46,5 +46,9 @@ export const toppings =  [
     {
         "id": "5T",
         "name": "ham"
+    },
+    {
+        "id": "6T",
+        "name": "Tuna"
     }
 ]

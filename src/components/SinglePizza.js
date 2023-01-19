@@ -27,14 +27,22 @@ const SinglePizza = () => {
 
     const small = toppins.slice(0, 2)
     const medium = toppins.slice(0, 3)
+    const large = toppins.slice(0, 5)
     // Checks for pizza size then add appropriate number of toppins
     // If pizza size is small, toppins is equal 2
     if(toppins.length >= 2 && size === 'small'){
       setToppins(small)
     }else if(toppins.length >= 3 && size === 'medium'){
       setToppins(medium)
+    }else if(toppins.length >= 5 && size === 'large'){
+      setToppins(large)
     }
 }
+
+  const changeSize = (e) => {
+    setSize(e.target.value)
+    setToppins([])
+  }
 
 
 
@@ -76,7 +84,7 @@ const SinglePizza = () => {
         <div className='w-[300px] pt-3'>
           <label htmlFor="pizzaSizes" className="block mb-2 text-sm font-medium text-gray-900">Select Size</label>
           {/* This code Gets the current size of pizza and assign it to the size variable */}
-          <select id="pizzaSizes" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" onChange={(e) => setSize(e.target.value)}>
+          <select id="pizzaSizes" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3" onChange={(e) => changeSize(e)}>
             <option value="small">Small</option>
             <option value="medium">Medium</option>
             <option value="large">Large</option>
